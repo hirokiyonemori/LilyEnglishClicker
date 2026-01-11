@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 571c736e7f0280745a5e45d8486f19cf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Animation/Shop/Shop.controller
+  uploadId: 488914

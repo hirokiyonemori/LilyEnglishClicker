@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8a63f962a03854f42a8d85aa65148187
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Animation/Screens/MainMenu.anim
+  uploadId: 488914

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 808183cd3658cab43988358788ad1ee5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Animation/Screens/PauseMenu.anim
+  uploadId: 488914

@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 5a9e490335c5c4ebdb1091a9e3192c27
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8966268170595700447
+    second: LilyPip_0
+  - first:
+      213: -7302322741925522854
+    second: LilyPip_1
+  - first:
+      213: 2655537355158925084
+    second: LilyPip_2
+  - first:
+      213: -1422844900211291209
+    second: LilyPip_3
+  - first:
+      213: -173149267215852882
+    second: LilyPip_4
+  - first:
+      213: -8542278275903403315
+    second: LilyPip_5
+  - first:
+      213: -899714512270290939
+    second: LilyPip_6
+  - first:
+      213: -69328294159242239
+    second: LilyPip_7
+  - first:
+      213: 6765785890770990168
+    second: LilyPip_8
+  - first:
+      213: 2989440021278451014
+    second: LilyPip_9
+  - first:
+      213: 9141064415716412363
+    second: LilyPip_10
+  - first:
+      213: -1846173384721664220
+    second: LilyPip_11
+  - first:
+      213: -3540663822840693727
+    second: LilyPip_12
+  - first:
+      213: 5380844447124362487
+    second: LilyPip_13
+  - first:
+      213: 8282847705398152007
+    second: LilyPip_14
+  - first:
+      213: -8422774730943653810
+    second: LilyPip_15
+  - first:
+      213: -5987392973297977664
+    second: LilyPip_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LilyPip_0
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 2427
+        width: 184
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12170caaa9a619380800000000000000
+      internalID: -8966268170595700447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_1
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 2427
+        width: 180
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a52d544d720f8aa90800000000000000
+      internalID: -7302322741925522854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_2
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 2433
+        width: 200
+        height: 305
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f2706a72d5ad420800000000000000
+      internalID: 2655537355158925084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_3
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 2470
+        width: 174
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bb0e601a1a014ce0800000000000000
+      internalID: -1422844900211291209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_4
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 2427
+        width: 172
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaada7aa8a9d89df0800000000000000
+      internalID: -173149267215852882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_5
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 2432
+        width: 190
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcacd30ca2bb37980800000000000000
+      internalID: -8542278275903403315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_6
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 1626
+        width: 332
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5009dd00b629383f0800000000000000
+      internalID: -899714512270290939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_7
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1638
+        width: 410
+        height: 391
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10c21c5a842b90ff0800000000000000
+      internalID: -69328294159242239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_8
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 1626
+        width: 342
+        height: 387
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85431c5cb66e4ed50800000000000000
+      internalID: 6765785890770990168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_9
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 1117
+        width: 338
+        height: 414
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64563a15cdf9c7920800000000000000
+      internalID: 2989440021278451014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_10
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 1111
+        width: 391
+        height: 406
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcb8db797a59bde70800000000000000
+      internalID: 9141064415716412363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_11
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 1093
+        width: 382
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42772e986131166e0800000000000000
+      internalID: -1846173384721664220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_12
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 572
+        width: 319
+        height: 451
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12cf08a23090ddec0800000000000000
+      internalID: -3540663822840693727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_13
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 533
+        width: 365
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f41b7604899caa40800000000000000
+      internalID: 5380844447124362487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_14
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 27
+        width: 280
+        height: 406
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b8ae88a1692f270800000000000000
+      internalID: 8282847705398152007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_15
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 19
+        width: 314
+        height: 415
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4897fa020b4c1b80800000000000000
+      internalID: -8422774730943653810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LilyPip_16
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 25
+        width: 274
+        height: 410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c677e730d188eca0800000000000000
+      internalID: -5987392973297977664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LilyPip_0: -8966268170595700447
+      LilyPip_1: -7302322741925522854
+      LilyPip_10: 9141064415716412363
+      LilyPip_11: -1846173384721664220
+      LilyPip_12: -3540663822840693727
+      LilyPip_13: 5380844447124362487
+      LilyPip_14: 8282847705398152007
+      LilyPip_15: -8422774730943653810
+      LilyPip_16: -5987392973297977664
+      LilyPip_2: 2655537355158925084
+      LilyPip_3: -1422844900211291209
+      LilyPip_4: -173149267215852882
+      LilyPip_5: -8542278275903403315
+      LilyPip_6: -899714512270290939
+      LilyPip_7: -69328294159242239
+      LilyPip_8: 6765785890770990168
+      LilyPip_9: 2989440021278451014
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

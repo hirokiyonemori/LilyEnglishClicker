@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eea73056dd1e3f6438386fac3649401a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/TileMap/City.prefab
+  uploadId: 488914

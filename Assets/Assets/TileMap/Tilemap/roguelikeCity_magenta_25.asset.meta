@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dd0bc4cc7a285a5468895ca397162dc8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/TileMap/Tilemap/roguelikeCity_magenta_25.asset
+  uploadId: 488914

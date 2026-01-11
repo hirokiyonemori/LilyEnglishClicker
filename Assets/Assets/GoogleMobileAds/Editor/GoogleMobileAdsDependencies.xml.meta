@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2c9357ed17521401bb7b6733145ebcd9
+timeCreated: 1504855478
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml
+  uploadId: 488914

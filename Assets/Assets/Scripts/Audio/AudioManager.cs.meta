@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bc65091d15f5f544e9276526ca2ed2ad
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Scripts/Audio/AudioManager.cs
+  uploadId: 488914

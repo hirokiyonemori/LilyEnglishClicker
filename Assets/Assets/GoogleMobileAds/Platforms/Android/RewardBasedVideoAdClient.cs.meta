@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: a1e210d603a434d7ba2021f95f0d666c
+timeCreated: 1445365060
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/GoogleMobileAds/Platforms/Android/RewardBasedVideoAdClient.cs
+  uploadId: 488914

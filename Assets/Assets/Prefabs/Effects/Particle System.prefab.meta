@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: afa12d3b9a8aeda478504aca1b9cd36d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Prefabs/Effects/Particle System.prefab
+  uploadId: 488914

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 569dc001148d96746a4fd71980b79f3b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Prefabs/AI/Car.prefab
+  uploadId: 488914

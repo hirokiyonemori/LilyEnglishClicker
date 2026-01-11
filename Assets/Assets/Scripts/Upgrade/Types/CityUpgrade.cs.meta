@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8c74375191b12c04ea71d4d6a898fb8c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Scripts/Upgrade/Types/CityUpgrade.cs
+  uploadId: 488914

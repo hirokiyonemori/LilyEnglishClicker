@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5b0b9a82dc92cce499cc452af2d4a7d2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Scripts/Managers/Managers.cs
+  uploadId: 488914

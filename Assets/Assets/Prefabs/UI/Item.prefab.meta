@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bb6a08c2e0fb07e4084c8a3847771196
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 134752
+  packageName: Clicker-Idle Game Template
+  packageVersion: 2.7
+  assetPath: Assets/Assets/Prefabs/UI/Item.prefab
+  uploadId: 488914
