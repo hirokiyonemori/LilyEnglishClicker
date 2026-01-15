@@ -106,6 +106,20 @@ namespace Idle
             }
         }
 
+        /// <summary>
+        /// ゴールドのみ更新（コイン回収時用）
+        /// </summary>
+        /// <param name="gold">現在のゴールド</param>
+        public void UpdateGoldOnly(long gold)
+        {
+            if (GoldText != null)
+            {
+                GoldText.text = "GOLD: " + gold.ToString("N0");
+                // ★コイン回収時の小さめバウンド
+                GoldText.transform.localScale = goldOriginalScale * (1f + (punchScale - 1f) * 0.5f);
+            }
+        }
+
         //Convert number to string with zero replaced by letters
         public static string IntParseToString(long value)
         {

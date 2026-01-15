@@ -18,10 +18,13 @@ namespace Idle
 
         [Header("Player & Environment")]
         public PlayerController playerController;
-        public BackgroundScroller backgroundScroller;
 
         [Header("Status Window (ドラクエ風UI)")]
         public StatusWindowController statusWindow;
+
+        [Header("Result Screen")]
+        public ResultManager resultManager; // リザルト画面マネージャー
+        public int targetScore = 25; // クリアに必要なスコア（敵の数）
 
         private void Start()
         {
@@ -39,16 +42,20 @@ namespace Idle
                 }
             }
 
-            // BackgroundScrollerが未設定の場合、自動的に探す
-            if (backgroundScroller == null)
-            {
-                backgroundScroller = FindObjectOfType<BackgroundScroller>();
-            }
-
             // StatusWindowControllerが未設定の場合、自動的に探す
             if (statusWindow == null)
             {
                 statusWindow = FindObjectOfType<StatusWindowController>();
+            }
+
+            // ResultManagerが未設定の場合、自動的に探す
+            if (resultManager == null)
+            {
+                resultManager = FindObjectOfType<ResultManager>();
+                if (resultManager != null)
+                {
+                    Debug.Log("GameManager: ResultManagerを自動検出しました");
+                }
             }
 
             StartGame();
@@ -152,9 +159,8 @@ namespace Idle
             // 敵を初期化
             currentEnemy.Setup(wordData);
 
-            // ★プレイヤーと背景を停止（遭遇）
+            // ★プレイヤーを停止（遭遇）
             if (playerController != null) playerController.SetState(PlayerController.PlayerState.Idle);
-            if (backgroundScroller != null) backgroundScroller.SetScrolling(false);
 
             Debug.Log($"★敵を生成しました: {wordData.english}");
             Debug.Log($"  currentEnemy: {currentEnemy} (InstanceID: {currentEnemy.GetInstanceID()})");
@@ -184,6 +190,33 @@ namespace Idle
             }
 
             Debug.Log($"報酬獲得: {gold} Gold, スコア: {score} (合計: {currentGold} Gold, {currentScore} Score)");
+
+            // ★クリア判定：目標スコアに到達したらリザルト表示
+            CheckGameClear();
+        }
+
+        /// <summary>
+        /// ゲームクリア判定
+        /// </summary>
+        private void CheckGameClear()
+        {
+            if (currentScore >= targetScore)
+            {
+                Debug.Log($"★ゲームクリア！スコア: {currentScore}/{targetScore}");
+
+                // リザルト画面を表示
+                if (resultManager != null)
+                {
+                    resultManager.ShowResult(currentGold, currentScore, targetScore);
+
+                    // プレイヤーを停止
+                    if (playerController != null) playerController.SetState(PlayerController.PlayerState.Idle);
+                }
+                else
+                {
+                    Debug.LogWarning("GameManager: ResultManager が見つかりません。リザルト画面を表示できません。");
+                }
+            }
         }
 
         /// <summary>
@@ -203,7 +236,7 @@ namespace Idle
 
                 // ★次の敵まで走る（再出発）
                 if (playerController != null) playerController.SetState(PlayerController.PlayerState.Running);
-                if (backgroundScroller != null) backgroundScroller.SetScrolling(true);
+                // 背景のフェードは自動継続（何もしない）
 
                 // 少し待ってから次の敵を生成
                 StartCoroutine(SpawnNextEnemyAfterDelay(1.0f));
@@ -216,7 +249,7 @@ namespace Idle
                 // 暫定対応: 参照が一致しなくても次の敵を生成
                 currentEnemy = null;
                 if (playerController != null) playerController.SetState(PlayerController.PlayerState.Running);
-                if (backgroundScroller != null) backgroundScroller.SetScrolling(true);
+                // 背景のフェードは自動継続（何もしない）
                 StartCoroutine(SpawnNextEnemyAfterDelay(1.0f));
             }
         }
@@ -227,6 +260,14 @@ namespace Idle
         private IEnumerator SpawnNextEnemyAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
+
+            // ★クリア済みの場合は敵を生成しない
+            if (currentScore >= targetScore)
+            {
+                Debug.Log("★ゲームクリア済みのため、次の敵は生成しません。");
+                yield break; // コルーチンを終了
+            }
+
             SpawnEnemy();
         }
         //Method to pause
