@@ -84,10 +84,10 @@ namespace Idle
         public void OnTap()
         {
             // とりあえず1ダメージ。後で DataManager.data.MoneyByClick などから攻撃力を参照する
-            int damage = 200;
+            //int damage = 1;
 
             // 既存のゲームシステムと統合する場合はこのようにする:
-            // int damage = (int)DataManager.data.MoneyByClick;
+            int damage = (int)DataManager.data.MoneyByClick;
 
             TakeDamage(damage);
 
@@ -137,6 +137,9 @@ namespace Idle
                 Managers.Instance.particleManager.PlayEffect(Managers.Instance.particleManager.clickEffect);
             }
 
+            // ★コインエクスプロージョン（報酬処理の前に実行）
+            SpawnCoinExplosion();
+
             // 報酬処理
             GiveReward();
 
@@ -160,6 +163,26 @@ namespace Idle
         }
 
         /// <summary>
+        /// コインエクスプロージョンを生成
+        /// </summary>
+        private void SpawnCoinExplosion()
+        {
+            // 報酬額を計算（GiveRewardと同じロジック）
+            int wordLength = currentWordData.english.Length;
+            long goldReward = wordLength * 10; // 1文字あたり10ゴールド
+
+            // CoinSpawner を使ってコインを飛び散らせる
+            if (CoinSpawner.Instance != null)
+            {
+                CoinSpawner.Instance.SpawnCoinExplosion(transform.position, goldReward);
+            }
+            else
+            {
+                Debug.LogWarning("EnemyController: CoinSpawner が見つかりません。コインエクスプロージョンをスキップします。");
+            }
+        }
+
+        /// <summary>
         /// 敵を倒した時の報酬処理
         /// </summary>
         private void GiveReward()
@@ -170,15 +193,18 @@ namespace Idle
             long goldReward = wordLength * 10; // 1文字あたり10ゴールド
             int scoreReward = 1; // 1体倒すごとに+1スコア
 
+            // ★コイン演出に報酬を任せるため、ここでは GameManager のスコアのみ更新
+            // コインが UI に到達した時に Coin.cs が AddReward を呼び出す
+
             // 既存のMoneyシステムにも追加（互換性のため）
-            DataManager.data.Money += goldReward;
+            // DataManager.data.Money += goldReward; // ← コインが加算するので重複回避
 
             Debug.Log($"報酬獲得: {goldReward} Gold (単語の長さ: {wordLength}文字)");
 
-            // ★GameManagerの新しい報酬システムに報告
+            // ★GameManagerの新しい報酬システムに報告（スコアのみ）
             if (Managers.Instance != null && Managers.Instance.gameManager != null)
             {
-                Managers.Instance.gameManager.AddReward(goldReward, scoreReward);
+                Managers.Instance.gameManager.AddReward(0, scoreReward); // ゴールドは0、スコアのみ加算
             }
 
             // UI更新（既存のシステムも引き続き更新）

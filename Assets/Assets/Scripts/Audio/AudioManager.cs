@@ -9,7 +9,9 @@ public class AudioManager : MonoBehaviour
     public AudioSource Sound;
 
     [Header("Audio Effects")]
-    public AudioClip Coin;
+    public AudioClip Coin; // 既存のコインSE
+    public AudioClip CoinBurst; // コイン飛び散りSE（ジャララッ！）
+    public AudioClip CoinCollect; // コイン回収SE（ピコーン！）
 
     // Method of playing effect, accepts any effect from cached
     public void PlaySound(AudioClip sound)
