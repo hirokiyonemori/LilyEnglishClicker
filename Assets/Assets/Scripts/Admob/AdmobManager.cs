@@ -1,14 +1,27 @@
-﻿using UnityEngine;
-using GoogleMobileAds.Api;
+using UnityEngine;
 
 namespace Idle
 {
+    /// <summary>
+    /// 【一時的に無効化中】広告表示マネージャー
+    ///
+    /// このクラスは AdMob v3世代のAPI（RewardBasedVideoAd / AdRequest.Builder /
+    /// InterstitialAd.IsLoaded など）で書かれていたが、プロジェクトが参照している
+    /// SDKは v10.7.0 で、これらは全て削除済みのためコンパイルが通らなくなっていた。
+    ///
+    /// ゲーム本体の開発を止めないよう、いったん広告呼び出しを空実装にしてある。
+    /// シーンに保存された設定を失わないよう、SerializeFieldと公開メソッドの
+    /// 名前・シグネチャは元のまま維持している。
+    ///
+    /// TODO: v10 API へ移行する
+    ///   - MobileAds.Initialize(appId)      → MobileAds.Initialize(Action&lt;InitializationStatus&gt;)
+    ///   - RewardBasedVideoAd.Instance      → RewardedAd.Load(adUnitId, request, callback)
+    ///   - new AdRequest.Builder().Build()  → new AdRequest()
+    ///   - new InterstitialAd(id) + IsLoaded() → InterstitialAd.Load(id, request, callback)
+    /// </summary>
     public class AdmobManager : MonoBehaviour
     {
         public enum BannerPosition { Top, Bottom } //Numerator for position of banner
-
-        private BannerView bannerView;
-        private RewardBasedVideoAd rewardBasedVideo;
 
         public static AdmobManager instance; //Singletop
 
@@ -20,7 +33,7 @@ namespace Idle
         [SerializeField] private BannerPosition bannerPosition; //Position of banner
 
         [Header("Reward settings")]
-        public long rewardCount; //You can edit this from any scripts 
+        public long rewardCount; //You can edit this from any scripts
 
         private void Awake()
         {
@@ -32,80 +45,40 @@ namespace Idle
             Init();
         }
 
-        void Init()
+        private void Init()
         {
-            MobileAds.Initialize(admobConfig.appId);
+            Debug.LogWarning("AdmobManager: 広告機能は一時的に無効化されています（SDK v10へのAPI移行が未対応）。");
 
-            this.rewardBasedVideo = RewardBasedVideoAd.Instance;//Load RewardVideo 
-
-            rewardBasedVideo.LoadAd(new AdRequest.Builder().Build(), admobConfig.rewardBasedVideoID);
-
-            rewardBasedVideo.OnAdRewarded += onRewardedVideoEvent;
-
-            if (showBannerOnAwake) //if bool is true it show Banner after admob init 
+            if (showBannerOnAwake)
             {
                 ShowBanner();
             }
         }
 
         #region // Show methods
+
         public void ShowBanner()
         {
-            switch (bannerPosition)//check selected banner position
-            {
-                case BannerPosition.Top:
-                    bannerView = new BannerView(admobConfig.bannerViewID, AdSize.Banner, AdPosition.Top); //show banner
-                    break;
-                case BannerPosition.Bottom:
-                    bannerView = new BannerView(admobConfig.bannerViewID, AdSize.Banner, AdPosition.Bottom);
-                    break;
-            }
-
-            bannerView.LoadAd(new AdRequest.Builder().Build());
-
-            bannerView.Show();
+            Debug.Log($"AdmobManager: [無効化中] バナー表示をスキップしました（位置: {bannerPosition}）");
         }
+
         public void HideBanner()
         {
-            bannerView.Hide();
+            Debug.Log("AdmobManager: [無効化中] バナー非表示をスキップしました");
         }
 
         public void ShowInterstitial()
         {
-            InterstitialAd interstitial = new InterstitialAd(admobConfig.interstitialID);
-            interstitial.LoadAd(new AdRequest.Builder().Build());
-
-            if (interstitial.IsLoaded()) //if isInterstitial loaded it show
-            {
-                interstitial.Show();
-            }
-            else
-            {
-                interstitial = new InterstitialAd(admobConfig.interstitialID); //Load Interstitial 
-            }
+            Debug.Log("AdmobManager: [無効化中] インタースティシャル表示をスキップしました");
         }
 
         public void ShowReward()
         {
-            if (rewardBasedVideo.IsLoaded())//if reward loaded it show
-            {
-                rewardBasedVideo.Show();//show method
-            }
-
-        }
-        #endregion
-
-
-        #region // Events
-        void onRewardedVideoEvent(object sender, Reward args)
-        {
-            //Reward
-            DataManager.data.Money += rewardCount;
-            DataManager.SaveData();
+            // 広告を再生していないため、報酬は付与しない。
+            // 移行後は視聴完了コールバックの中で rewardCount を加算すること。
+            Debug.Log("AdmobManager: [無効化中] リワード動画表示をスキップしました（報酬は付与されません）");
         }
 
         #endregion
-
-
     }
 }
