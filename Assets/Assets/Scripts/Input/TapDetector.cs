@@ -23,6 +23,11 @@ namespace Idle
 
         private void Update()
         {
+            if (global::QuestManager.IsQuestActive)
+            {
+                return;
+            }
+
             // マウスクリック or タッチ入力を検出
             if (Input.GetMouseButtonDown(0))
             {
