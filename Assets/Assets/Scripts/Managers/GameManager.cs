@@ -9,6 +9,7 @@ namespace Idle
         [Header("Enemy System")]
         public GameObject enemyPrefab; // 敵のプレハブ（Inspectorで設定）
         public Transform enemySpawnPoint; // 敵を生成する位置（Inspectorで設定）
+        public EnemyDatabase enemyDatabase; // 出現する敵の種類一覧（未設定でも従来どおり動作する）
 
         private EnemyController currentEnemy; // 現在の敵
 
@@ -64,6 +65,12 @@ namespace Idle
         //The method is invoked by tapping the screen
         public void Click()
         {
+            if (global::QuestManager.IsQuestActive)
+            {
+                Debug.Log("GameManager: クエスト進行中のため本編クリックを無視しました。");
+                return;
+            }
+
             Debug.Log("GameManager: Click() called"); // ★ログ追加
 
             // 敵が存在する場合は敵を攻撃
@@ -156,8 +163,13 @@ namespace Idle
                 return;
             }
 
+            // 進行度に応じた敵の種類を抽選（未設定ならプレハブ既定の見た目のまま）
+            EnemyData enemyData = enemyDatabase != null
+                ? enemyDatabase.GetRandomForProgress(currentScore, targetScore)
+                : null;
+
             // 敵を初期化
-            currentEnemy.Setup(wordData);
+            currentEnemy.Setup(wordData, enemyData);
 
             // ★プレイヤーを停止（遭遇）
             if (playerController != null) playerController.SetState(PlayerController.PlayerState.Idle);

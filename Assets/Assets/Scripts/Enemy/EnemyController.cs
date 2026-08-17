@@ -23,10 +23,12 @@ namespace Idle
 
         // 内部データ
         private WordData currentWordData;
+        private EnemyData currentEnemyData;
         private int currentHp;
         private int maxHp;
         private Color originalColor;
         private Vector3 originalPosition;
+        private Vector2 baseImageSize;
 
         private void Awake()
         {
@@ -34,6 +36,7 @@ namespace Idle
             if (enemyImage != null)
             {
                 originalColor = enemyImage.color;
+                baseImageSize = enemyImage.rectTransform.sizeDelta;
             }
             originalPosition = transform.localPosition;
         }
@@ -42,7 +45,8 @@ namespace Idle
         /// 敵を初期化（生成時にGameManagerから呼ばれる）
         /// </summary>
         /// <param name="data">表示する単語データ</param>
-        public void Setup(WordData data)
+        /// <param name="enemyData">見た目と強さの設定。nullの場合はプレハブ既定の見た目・HP1で動作する</param>
+        public void Setup(WordData data, EnemyData enemyData = null)
         {
             if (data == null)
             {
@@ -51,6 +55,10 @@ namespace Idle
             }
 
             currentWordData = data;
+            currentEnemyData = enemyData;
+
+            // 見た目の反映
+            ApplyAppearance(enemyData);
 
             // テキスト反映
             if (englishText != null)
@@ -71,11 +79,40 @@ namespace Idle
                 Debug.LogWarning("EnemyController: readingTextが設定されていません。");
             }
 
-            // HP設定
-            maxHp = 1;
+            // HP設定（EnemyData未指定なら従来どおり1タップで倒せる）
+            maxHp = enemyData != null ? enemyData.CalculateHp(data) : 1;
             currentHp = maxHp;
 
-            Debug.Log($"敵生成: {data.english} (HP: {currentHp})");
+            string enemyName = enemyData != null ? enemyData.displayName : "(既定)";
+            Debug.Log($"敵生成: {enemyName} / {data.english} (HP: {currentHp})");
+        }
+
+        /// <summary>
+        /// EnemyDataの見た目をこのインスタンスに反映する
+        /// </summary>
+        private void ApplyAppearance(EnemyData enemyData)
+        {
+            if (enemyData == null || enemyImage == null)
+            {
+                return;
+            }
+
+            if (enemyData.sprite != null)
+            {
+                enemyImage.sprite = enemyData.sprite;
+            }
+            else
+            {
+                Debug.LogWarning($"EnemyController: {enemyData.displayName} にスプライトが設定されていません。");
+            }
+
+            // enemyImageはルートに付いており、単語テキストはその子。
+            // localScaleを変えるとテキストまで拡大されてしまうため、
+            // 画像だけが追従する sizeDelta の方を拡縮する
+            if (enemyData.spriteScale > 0f)
+            {
+                enemyImage.rectTransform.sizeDelta = baseImageSize * enemyData.spriteScale;
+            }
         }
 
         /// <summary>
@@ -267,6 +304,14 @@ namespace Idle
         public WordData GetWordData()
         {
             return currentWordData;
+        }
+
+        /// <summary>
+        /// 現在の敵データを取得（未設定の場合はnull）
+        /// </summary>
+        public EnemyData GetEnemyData()
+        {
+            return currentEnemyData;
         }
 
         private void OnDestroy()
