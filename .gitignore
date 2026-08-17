@@ -65,3 +65,11 @@ google-services.json
 # Unity Crash Dumps
 ############################
 mono_crash.*
+
+############################
+# Build Artifacts
+############################
+*.apk
+*.aab
+*_BurstDebugInformation_DoNotShip/
+*_BackUpThisFolder_ButDontShipItWithYourGame/
