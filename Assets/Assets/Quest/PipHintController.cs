@@ -27,9 +27,9 @@ public class PipHintController : MonoBehaviour
 
     private void Awake()
     {
-        speechBubble?.SetActive(false);
         if (speechBubble != null)
         {
+            speechBubble.SetActive(false);
             bubbleCG = speechBubble.GetComponent<CanvasGroup>();
             if (bubbleCG == null) bubbleCG = speechBubble.AddComponent<CanvasGroup>();
         }
@@ -46,8 +46,8 @@ public class PipHintController : MonoBehaviour
             if (sp != null) pipImage.sprite = sp;
         }
 
-        root?.SetActive(true);
-        speechBubble?.SetActive(true);
+        if (root != null) root.SetActive(true);
+        if (speechBubble != null) speechBubble.SetActive(true);
         if (bubbleCG != null) bubbleCG.alpha = 1f;
 
         currentRoutine = StartCoroutine(HintRoutine(message));
@@ -56,7 +56,7 @@ public class PipHintController : MonoBehaviour
     public void HideHint()
     {
         if (currentRoutine != null) { StopCoroutine(currentRoutine); currentRoutine = null; }
-        speechBubble?.SetActive(false);
+        if (speechBubble != null) speechBubble.SetActive(false);
     }
 
     // ─── 内部 ────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ public class PipHintController : MonoBehaviour
         yield return new WaitForSeconds(displayDuration);
         yield return StartCoroutine(FadeOut());
 
-        speechBubble?.SetActive(false);
+        if (speechBubble != null) speechBubble.SetActive(false);
         currentRoutine = null;
     }
 

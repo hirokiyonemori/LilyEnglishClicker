@@ -42,6 +42,10 @@ public class VillagerLine
 public class VillagerScenario
 {
     public string speakerName = "村人";
+
+    [Tooltip("この人物の立ち絵。未設定なら VillagerEventPanel 側の話者別・既定の画像、それも無ければ代替のエンブレムを表示する")]
+    public Sprite portrait;
+
     public VillagerLine[] lines;
 
     [Header("選択肢")]
@@ -66,7 +70,10 @@ public class BossData
     public string bossName = "ダークドラゴン";
     public string bossDescription = "暗黒の力を持つ強敵！";
     public Sprite bossSprite;
-    public int bossHp = 8;
+    public int bossHp = 20;
+    [Min(1)] public int bossAttack = 2;
+    [Range(0, 100), Tooltip("ボスの攻撃力 = max(bossAttack, Lily の最大HP × この割合%)。育成で HP が増えても攻撃が見えなくならないようにする")]
+    public int bossAttackPercent = 8;
     public int bossGoldReward = 500;
 }
 
@@ -87,9 +94,12 @@ public class QuestDataSO : ScriptableObject
     [Header("村人シナリオ（空なら組み込みを使用）")]
     public VillagerScenario[] villagerScenarios;
 
-    [Header("道中敵の HP 設定")]
-    [Tooltip("単語文字数 × この値 = 敵 HP")]
+    [Header("道中敵の設定")]
+    [Tooltip("道中の基準HP 6 × この値 = 敵 HP（単語には依存しない）")]
     public int enemyHpMultiplier = 2;
+    [Min(1)] public int enemyAttack = 1;
+    [Range(0, 100), Tooltip("道中敵の攻撃力 = max(enemyAttack, Lily の最大HP × この割合%)。0 なら enemyAttack だけ")]
+    public int enemyAttackPercent = 4;
     public int enemyGoldReward = 100;
 
     [Header("宝箱")]
@@ -124,6 +134,12 @@ public class QuestEventResult
 // ─── 組み込み村人シナリオ集（Inspector 未設定時のフォールバック） ─
 public static class DefaultVillagerScenarios
 {
+    /// <summary>立ち絵は Assets/Resources/Villagers/ に置く。無い場合は null（代替エンブレム表示）</summary>
+    private static Sprite LoadPortrait(string name)
+    {
+        return Resources.Load<Sprite>("Villagers/" + name);
+    }
+
     public static VillagerScenario[] Get()
     {
         return new VillagerScenario[]
@@ -131,6 +147,7 @@ public static class DefaultVillagerScenarios
             new VillagerScenario
             {
                 speakerName = "老人",
+                portrait = LoadPortrait("elder"),
                 lines = new VillagerLine[]
                 {
                     new VillagerLine { text = "おお、旅人よ！\nこの先には危険な魔物がいるぞ。" },
@@ -146,6 +163,7 @@ public static class DefaultVillagerScenarios
             new VillagerScenario
             {
                 speakerName = "商人",
+                portrait = LoadPortrait("merchant"),
                 lines = new VillagerLine[]
                 {
                     new VillagerLine { text = "やあ、冒険者さん！\nこの辺りで英単語の問題を解いた人がいてね。" },
@@ -161,6 +179,7 @@ public static class DefaultVillagerScenarios
             new VillagerScenario
             {
                 speakerName = "怪しい人物",
+                portrait = LoadPortrait("suspicious"),
                 lines = new VillagerLine[]
                 {
                     new VillagerLine { text = "ふっふっふ…\nこの壺を買わないかね？格安だよ？" }
@@ -175,9 +194,10 @@ public static class DefaultVillagerScenarios
             new VillagerScenario
             {
                 speakerName = "魔法少女の師匠",
+                portrait = LoadPortrait("master"),
                 lines = new VillagerLine[]
                 {
-                    new VillagerLine { text = "おやおや、リリィの仲間かい？\n英語の修行、順調そうだね。" },
+                    new VillagerLine { text = "おや、リリィじゃないか。\n英語の修行、順調そうだね。" },
                     new VillagerLine { text = "特別に回復魔法をかけてあげよう。" }
                 },
                 choiceALabel = "お願いします！",

@@ -15,10 +15,21 @@ public class VillagerEventPanel : MonoBehaviour
     [SerializeField] private Image       villagerImage;
     [SerializeField] private Sprite      defaultVillagerSprite;
 
+    [Tooltip("話者名ごとの立ち絵。組み込みシナリオ（コード定義）にも画像を当てられる。VillagerScenario.portrait があればそちらが優先")]
+    [SerializeField] private SpeakerPortrait[] speakerPortraits;
+
+    [Serializable]
+    private class SpeakerPortrait
+    {
+        public string speakerName;
+        public Sprite sprite;
+    }
+
     [Header("ダイアログ")]
     [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject      tapPrompt;    // ▼タップで次へ
+    [SerializeField] private Button          advanceButton;
 
     [Header("選択肢")]
     [SerializeField] private GameObject      choiceGroup;
@@ -38,6 +49,7 @@ public class VillagerEventPanel : MonoBehaviour
     private VillagerScenario         currentScenario;
     private int                      lineIndex;
     private Action<QuestEventResult> onComplete;
+    private bool advanceRequested;
 
     // ─── 公開 API ────────────────────────────────────────────────
     public void Show(VillagerScenario scenario, Action<QuestEventResult> callback)
@@ -45,35 +57,69 @@ public class VillagerEventPanel : MonoBehaviour
         currentScenario = scenario;
         onComplete      = callback;
         lineIndex       = 0;
+        advanceRequested = false;
+        if (advanceButton != null)
+        {
+            advanceButton.onClick.RemoveListener(OnAdvanceClicked);
+            advanceButton.onClick.AddListener(OnAdvanceClicked);
+            advanceButton.interactable = false;
+        }
 
-        if (villagerImage != null && defaultVillagerSprite != null)
-            villagerImage.sprite = defaultVillagerSprite;
+        // 前の人物の画像が残らないよう、画像が無い時も必ず代入し直す（null なら代替エンブレムに戻る）
+        if (villagerImage != null) villagerImage.sprite = ResolvePortrait(scenario);
 
         if (speakerNameText != null) speakerNameText.text = scenario.speakerName;
 
-        choiceGroup?.SetActive(false);
-        resultBox?.SetActive(false);
-        tapPrompt?.SetActive(false);
+        if (choiceGroup != null) choiceGroup.SetActive(false);
+        if (resultBox != null) resultBox.SetActive(false);
+        if (tapPrompt != null) tapPrompt.SetActive(false);
 
-        root?.SetActive(true);
+        if (root != null) root.SetActive(true);
         StartCoroutine(RunDialogue());
+    }
+
+    /// <summary>立ち絵の優先順位: シナリオ個別 → 話者名の対応表 → 既定の画像 → なし（代替エンブレム）</summary>
+    private Sprite ResolvePortrait(VillagerScenario scenario)
+    {
+        if (scenario != null)
+        {
+            if (scenario.portrait != null) return scenario.portrait;
+
+            if (speakerPortraits != null)
+            {
+                foreach (SpeakerPortrait entry in speakerPortraits)
+                {
+                    if (entry != null && entry.sprite != null && entry.speakerName == scenario.speakerName)
+                        return entry.sprite;
+                }
+            }
+        }
+
+        return defaultVillagerSprite;
     }
 
     public void Hide()
     {
         StopAllCoroutines();
-        root?.SetActive(false);
+        advanceRequested = false;
+        if (advanceButton != null)
+        {
+            advanceButton.interactable = false;
+            advanceButton.onClick.RemoveListener(OnAdvanceClicked);
+        }
+        if (root != null) root.SetActive(false);
     }
 
     // ─── ダイアログ進行 ──────────────────────────────────────────
     private IEnumerator RunDialogue()
     {
-        while (lineIndex < currentScenario.lines.Length)
+        VillagerLine[] lines = currentScenario != null ? currentScenario.lines : null;
+        while (lines != null && lineIndex < lines.Length)
         {
-            yield return StartCoroutine(TypeLine(currentScenario.lines[lineIndex].text));
-            tapPrompt?.SetActive(true);
+            yield return StartCoroutine(TypeLine(lines[lineIndex] != null ? lines[lineIndex].text : ""));
+            if (tapPrompt != null) tapPrompt.SetActive(true);
             yield return WaitForTap();
-            tapPrompt?.SetActive(false);
+            if (tapPrompt != null) tapPrompt.SetActive(false);
             lineIndex++;
         }
         ShowChoices();
@@ -92,15 +138,28 @@ public class VillagerEventPanel : MonoBehaviour
 
     private IEnumerator WaitForTap()
     {
+        advanceRequested = false;
+        if (advanceButton != null) advanceButton.interactable = true;
         yield return new WaitUntil(() =>
+            advanceRequested ||
             Input.GetMouseButtonDown(0) ||
             (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began));
+        advanceRequested = false;
+        if (advanceButton != null) advanceButton.interactable = false;
         yield return null;
+    }
+
+    private void OnAdvanceClicked()
+    {
+        if (isActiveAndEnabled && advanceButton != null && advanceButton.interactable)
+            advanceRequested = true;
     }
 
     // ─── 選択肢 ──────────────────────────────────────────────────
     private void ShowChoices()
     {
+        advanceRequested = false;
+        if (advanceButton != null) advanceButton.interactable = false;
         if (choiceButtonA != null)
         {
             if (choiceLabelA != null) choiceLabelA.text = currentScenario.choiceALabel;
@@ -113,13 +172,20 @@ public class VillagerEventPanel : MonoBehaviour
             choiceButtonB.onClick.RemoveAllListeners();
             choiceButtonB.onClick.AddListener(() => OnChoiceSelected(false));
         }
-        choiceGroup?.SetActive(true);
+        if (choiceGroup != null) choiceGroup.SetActive(true);
         if (dialogueText != null) dialogueText.text = "どうする？";
+
+        // 選択肢ボタンがどちらも無いと進行不能になるため、Aを選んだ扱いで先へ進める
+        if (choiceButtonA == null && choiceButtonB == null)
+        {
+            Debug.LogWarning("VillagerEventPanel: 選択肢ボタンが未設定のため、自動で選択Aを適用します。");
+            OnChoiceSelected(true);
+        }
     }
 
     private void OnChoiceSelected(bool isA)
     {
-        choiceGroup?.SetActive(false);
+        if (choiceGroup != null) choiceGroup.SetActive(false);
         string type    = isA ? currentScenario.resultTypeA  : currentScenario.resultTypeB;
         int    amount  = isA ? currentScenario.rewardAmountA : currentScenario.rewardAmountB;
         string message = isA ? currentScenario.resultMessageA : currentScenario.resultMessageB;
@@ -152,12 +218,23 @@ public class VillagerEventPanel : MonoBehaviour
             okButton.onClick.RemoveAllListeners();
             okButton.onClick.AddListener(() =>
             {
-                resultBox?.SetActive(false);
+                if (resultBox != null) resultBox.SetActive(false);
                 onComplete?.Invoke(result);
             });
         }
-        resultBox?.SetActive(true);
+        else
+        {
+            // OKボタンが無いとクエストが進行不能になるため、その場で完了扱いにする
+            Debug.LogWarning("VillagerEventPanel: okButton が未設定のため、結果表示をスキップして進行します。");
+            onComplete?.Invoke(result);
+            return;
+        }
+
+        if (resultBox != null) resultBox.SetActive(true);
     }
 
-    private void Awake() => root?.SetActive(false);
+    private void Awake()
+    {
+        if (root != null) root.SetActive(false);
+    }
 }

@@ -25,6 +25,12 @@ public class QuestOverlayController : MonoBehaviour
     {
         if (questRoot != null)
         {
+            // 背景の出し分け（画像が無ければ何もしない）。Prefab を触らずに済むようコードから付ける
+            if (questRoot.GetComponent<QuestBackgroundSwitcher>() == null)
+            {
+                questRoot.AddComponent<QuestBackgroundSwitcher>();
+            }
+
             questRoot.SetActive(false);
         }
 
@@ -63,6 +69,7 @@ public class QuestOverlayController : MonoBehaviour
 
     public void OpenQuest()
     {
+        if (!QuestEntryController.IsUnlocked) return;
         TrySubscribe();
 
         if (QuestManager.Instance == null)

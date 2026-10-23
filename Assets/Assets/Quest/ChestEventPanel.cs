@@ -24,6 +24,8 @@ public class ChestEventPanel : MonoBehaviour
     [Header("結果")]
     [SerializeField] private GameObject      resultBox;
     [SerializeField] private TextMeshProUGUI rarityText;
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private Button          okButton;
 
@@ -37,36 +39,56 @@ public class ChestEventPanel : MonoBehaviour
 
     private QuestDataSO               questData;
     private Action<QuestEventResult>  onComplete;
+    private bool isShowing;
+    private bool opened;
+    private bool chestPositionCaptured;
+    private Vector2 chestPosition;
 
     // ─── 公開 API ────────────────────────────────────────────────
     public void Show(QuestDataSO data, Action<QuestEventResult> callback)
     {
+        StopAllCoroutines();
+        LoadDefaultSprites();
+        CaptureChestPosition();
+        RestoreChestPosition();
+        isShowing = true;
+        opened = false;
         questData  = data;
         onComplete = callback;
 
         if (chestImage != null && chestClosed != null) chestImage.sprite = chestClosed;
-        if (openButtonText != null) openButtonText.text = "宝箱を開ける！";
+        if (openButtonText != null) openButtonText.text = "宝箱を開ける";
+        if (itemNameText != null) itemNameText.text = "道ばたの宝箱";
+        if (descriptionText != null) descriptionText.text = "何が入っているだろう？";
+        if (rarityText != null) rarityText.text = "TREASURE";
 
-        resultBox?.SetActive(false);
-        sparkleEffect?.SetActive(false);
+        if (resultBox != null) resultBox.SetActive(false);
+        if (sparkleEffect != null) sparkleEffect.SetActive(false);
 
-        openButton?.onClick.RemoveAllListeners();
-        openButton?.onClick.AddListener(OnOpenClicked);
-        openButton?.gameObject.SetActive(true);
+        if (openButton != null)
+        {
+            openButton.onClick.RemoveAllListeners();
+            openButton.onClick.AddListener(OnOpenClicked);
+            openButton.gameObject.SetActive(true);
+        }
 
-        root?.SetActive(true);
+        if (root != null) root.SetActive(true);
     }
 
     public void Hide()
     {
         StopAllCoroutines();
-        root?.SetActive(false);
+        isShowing = false;
+        RestoreChestPosition();
+        if (root != null) root.SetActive(false);
     }
 
     // ─── 開封 ────────────────────────────────────────────────────
     private void OnOpenClicked()
     {
-        openButton?.gameObject.SetActive(false);
+        if (!isShowing || opened) return;
+        opened = true;
+        if (openButton != null) openButton.gameObject.SetActive(false);
         StartCoroutine(OpenChest());
     }
 
@@ -85,7 +107,10 @@ public class ChestEventPanel : MonoBehaviour
             if (sp != null) chestImage.sprite = sp;
         }
 
-        if (rarity == ChestRarity.Rare) sparkleEffect?.SetActive(true);
+        if (rarity == ChestRarity.Rare && sparkleEffect != null) sparkleEffect.SetActive(true);
+
+        // 蓋が開く表示と合わせて一度だけ再生する。結果や報酬の確定には関与しない。
+        SfxDirector.Play(SfxDirector.ChestOpen);
 
         yield return new WaitForSeconds(0.3f);
         ShowResult(rarity, result);
@@ -102,11 +127,16 @@ public class ChestEventPanel : MonoBehaviour
 
     private QuestEventResult BuildResult(ChestRarity rarity)
     {
-        int nMin    = questData?.normalGoldMin ?? 50;
-        int nMax    = questData?.normalGoldMax ?? 150;
-        int rMin    = questData?.rareGoldMin   ?? 300;
-        int rMax    = questData?.rareGoldMax   ?? 600;
-        string item = questData?.rareItemName  ?? "まほうのかぎ";
+        // questData は Unity のオブジェクトなので ?. / ?? は使わない
+        // （未割り当て参照は「nullでない」と判定されてしまうため）
+        bool hasData = questData != null;
+        int nMin    = hasData ? questData.normalGoldMin : 50;
+        int nMax    = hasData ? questData.normalGoldMax : 150;
+        int rMin    = hasData ? questData.rareGoldMin   : 300;
+        int rMax    = hasData ? questData.rareGoldMax   : 600;
+        string item = hasData && !string.IsNullOrEmpty(questData.rareItemName)
+                      ? questData.rareItemName
+                      : "まほうのかぎ";
 
         var r = new QuestEventResult { success = true };
         switch (rarity)
@@ -132,9 +162,19 @@ public class ChestEventPanel : MonoBehaviour
     private void ShowResult(ChestRarity rarity, QuestEventResult result)
     {
         if (rarityText != null)
-            rarityText.text = rarity == ChestRarity.Normal ? "　チェスト"
-                            : rarity == ChestRarity.Miss   ? "　ハズレ…"
-                                                           : "★ レアチェスト！";
+            rarityText.text = rarity == ChestRarity.Normal ? "NORMAL"
+                            : rarity == ChestRarity.Miss   ? "ハズレ…"
+                                                           : "RARE!";
+
+        if (itemNameText != null)
+            itemNameText.text = !string.IsNullOrEmpty(result.itemGained) ? result.itemGained
+                              : result.goldGained > 0 ? "金貨"
+                              : result.hpChange < 0 ? "仕掛けられた罠" : "空の宝箱";
+        if (descriptionText != null)
+            descriptionText.text = rarity == ChestRarity.Rare ? "レアアイテムを見つけた！"
+                                 : rarity == ChestRarity.Normal ? "きらめく金貨が入っていた。"
+                                 : result.hpChange < 0 ? "気をつけて、罠が隠されていた！"
+                                                       : "残念。中には何もなかった。";
 
         if (resultText != null) resultText.text = result.message;
 
@@ -143,12 +183,20 @@ public class ChestEventPanel : MonoBehaviour
             okButton.onClick.RemoveAllListeners();
             okButton.onClick.AddListener(() =>
             {
-                resultBox?.SetActive(false);
-                sparkleEffect?.SetActive(false);
+                if (resultBox != null) resultBox.SetActive(false);
+                if (sparkleEffect != null) sparkleEffect.SetActive(false);
                 onComplete?.Invoke(result);
             });
         }
-        resultBox?.SetActive(true);
+        else
+        {
+            // OKボタンが無いとクエストが進行不能になるため、その場で完了扱いにする
+            Debug.LogWarning("ChestEventPanel: okButton が未設定のため、結果表示をスキップして進行します。");
+            onComplete?.Invoke(result);
+            return;
+        }
+
+        if (resultBox != null) resultBox.SetActive(true);
     }
 
     private IEnumerator ShakeChest()
@@ -170,5 +218,43 @@ public class ChestEventPanel : MonoBehaviour
         rt.anchoredPosition = origin;
     }
 
-    private void Awake() => root?.SetActive(false);
+    private void Awake()
+    {
+        LoadDefaultSprites();
+        if (!isShowing && root != null) root.SetActive(false);
+    }
+
+    /// <summary>
+    /// 宝箱の画像を Assets/Resources/Chest/ から読み込む。Inspector（Prefab）で割り当て済みならそちらを優先する。
+    /// Prefab は QuestProductionUIBuilder で作り直されるため、画像をコード側で解決して設定が消えないようにしている。
+    /// ファイル名: closed / open_normal / open_miss / open_rare
+    /// </summary>
+    private void LoadDefaultSprites()
+    {
+        // Sprite は UnityEngine.Object なので ?? は使わず、明示的に null 判定する
+        if (chestClosed == null)     chestClosed     = Resources.Load<Sprite>("Chest/closed");
+        if (chestOpenNormal == null) chestOpenNormal = Resources.Load<Sprite>("Chest/open_normal");
+        if (chestOpenMiss == null)   chestOpenMiss   = Resources.Load<Sprite>("Chest/open_miss");
+        if (chestOpenRare == null)   chestOpenRare   = Resources.Load<Sprite>("Chest/open_rare");
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        isShowing = false;
+        RestoreChestPosition();
+    }
+
+    private void CaptureChestPosition()
+    {
+        if (chestPositionCaptured || chestImage == null) return;
+        chestPosition = chestImage.rectTransform.anchoredPosition;
+        chestPositionCaptured = true;
+    }
+
+    private void RestoreChestPosition()
+    {
+        if (chestPositionCaptured && chestImage != null)
+            chestImage.rectTransform.anchoredPosition = chestPosition;
+    }
 }

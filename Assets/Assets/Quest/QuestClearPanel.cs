@@ -15,6 +15,7 @@ public class QuestClearPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questNameText;
     [SerializeField] private Image           lilyImage;
     [SerializeField] private TextMeshProUGUI clearMessageText;
+    [SerializeField] private PipHintController pipHint;
 
     [Header("スタッツ")]
     [SerializeField] private TextMeshProUGUI goldText;
@@ -38,10 +39,11 @@ public class QuestClearPanel : MonoBehaviour
 
     private AudioSource audioSource;
     private Action onClose;
+    private bool isShowing;
 
     private void Awake()
     {
-        root?.SetActive(false);
+        if (!isShowing && root != null) root.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -50,50 +52,86 @@ public class QuestClearPanel : MonoBehaviour
     public void Show(string questName, string clearMessage,
                      int totalGold, int totalExp, Action onClose)
     {
+        if (pipHint != null) pipHint.HideHint();
+        PrepareShow();
         this.onClose = onClose;
 
-        if (titleText       != null) titleText.text       = "クエストクリア！";
+        if (titleText       != null) titleText.text       = "QUEST CLEAR!";
         if (questNameText   != null) questNameText.text   = questName;
         if (clearMessageText != null) clearMessageText.text = clearMessage;
         if (lilyImage != null && lilyHappySprite != null) lilyImage.sprite = lilyHappySprite;
+        if (goldText != null) goldText.text = "Gold +0";
+        if (expText != null) expText.text = "EXP +0";
+        if (itemText != null) itemText.text = "";
 
-        SetupButton("冒険を続ける");
+        SetupButton("冒険を終える");
         PlaySE(clearSE);
 
-        root?.SetActive(true);
         StartCoroutine(ShowStats(totalGold, totalExp));
     }
 
     public void ShowGameOver(Action onClose)
     {
+        if (pipHint != null) pipHint.HideHint();
+        PrepareShow();
         this.onClose = onClose;
 
         if (titleText       != null) titleText.text       = "力尽きてしまった…";
         if (questNameText   != null) questNameText.text   = "";
         if (clearMessageText != null) clearMessageText.text = "リリィ：「次はもっと頑張るよ！」";
         if (lilyImage != null && lilySadSprite != null)   lilyImage.sprite = lilySadSprite;
-        if (goldText  != null) goldText.text = "獲得ゴールド: 0 G";
-        if (expText   != null) expText.text  = "EXP: 0";
+        if (goldText  != null) goldText.text = "Gold +0";
+        if (expText   != null) expText.text  = "EXP +0";
         if (itemText  != null) itemText.text = "";
 
-        SetupButton("もう一度挑戦");
+        SetupButton("冒険を終える");
         PlaySE(gameOverSE);
-
-        root?.SetActive(true);
     }
 
     public void Hide()
     {
         StopAllCoroutines();
-        root?.SetActive(false);
+        isShowing = false;
+        if (root != null) root.SetActive(false);
+    }
+
+    private void PrepareShow()
+    {
+        StopAllCoroutines();
+        isShowing = true;
+        if (root != null) root.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        isShowing = false;
     }
 
     // ─── 内部 ────────────────────────────────────────────────────
     private void SetupButton(string label)
     {
         if (closeButtonLabel != null) closeButtonLabel.text = label;
-        closeButton?.onClick.RemoveAllListeners();
-        closeButton?.onClick.AddListener(() => { Hide(); onClose?.Invoke(); });
+
+        if (closeButton != null)
+        {
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(() => { Hide(); onClose?.Invoke(); });
+        }
+        else
+        {
+            // 閉じるボタンが無いとクエスト状態が Idle に戻らず本編が操作不能になるため、
+            // 少し見せてから自動で閉じる
+            Debug.LogWarning("QuestClearPanel: closeButton が未設定のため、自動で閉じます。");
+            StartCoroutine(AutoClose());
+        }
+    }
+
+    private IEnumerator AutoClose()
+    {
+        yield return new WaitForSeconds(3f);
+        Hide();
+        onClose?.Invoke();
     }
 
     private IEnumerator ShowStats(int gold, int exp)
@@ -102,14 +140,14 @@ public class QuestClearPanel : MonoBehaviour
 
         if (goldText != null)
             yield return StartCoroutine(CountUp(goldText, 0, gold, countUpDuration,
-                                                v => $"獲得ゴールド: {v:N0} G"));
+                                                v => $"Gold +{v:N0}"));
 
         yield return new WaitForSeconds(0.2f);
-        if (expText  != null) expText.text  = $"EXP: {exp}";
+        if (expText  != null) expText.text  = $"EXP +{exp:N0}";
         if (itemText != null) itemText.text = "";
 
         yield return new WaitForSeconds(0.3f);
-        closeButton?.gameObject.SetActive(true);
+        if (closeButton != null) closeButton.gameObject.SetActive(true);
     }
 
     private IEnumerator CountUp(TextMeshProUGUI t, int from, int to,

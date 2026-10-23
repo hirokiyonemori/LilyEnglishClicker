@@ -17,6 +17,7 @@ public class QuestStartButton : MonoBehaviour
 
     private void OnClick()
     {
+        if (!QuestEntryController.IsUnlocked) return;
         if (QuestManager.Instance != null)
         {
             QuestManager.Instance.StartQuest(questData);
