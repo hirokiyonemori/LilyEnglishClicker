@@ -22,6 +22,10 @@ public class EnemySpriteImporter : AssetPostprocessor
         "Enemy_DarkHelm",
         "Enemy_DragonWhelp",
         "Enemy_WordDevil",
+        "10", // WordDevil
+        "22", // Gargoyle
+        "23", // DragonWhelp
+        "24", // DarkHelm
     };
 
     /// <summary>新規インポート時の自動適用</summary>

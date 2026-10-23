@@ -12,6 +12,8 @@ namespace Idle
         [Tooltip("出現しうる敵の全種類")]
         public List<EnemyData> enemies = new List<EnemyData>();
 
+        private EnemyData lastPicked;
+
         // 抽選のたびにListを新規確保しないよう使い回す
         private readonly List<EnemyData> candidateBuffer = new List<EnemyData>();
 
@@ -42,7 +44,30 @@ namespace Idle
                 return enemies[Random.Range(0, enemies.Count)];
             }
 
-            return candidateBuffer[Random.Range(0, candidateBuffer.Count)];
+            if (candidateBuffer.Count > 1) candidateBuffer.Remove(lastPicked);
+            lastPicked = candidateBuffer[Random.Range(0, candidateBuffer.Count)];
+            return lastPicked;
+        }
+
+        /// <summary>
+        /// ステージの通常の敵を1体返す。倒した数が増えるほど minTier → maxTier へ強くなる。
+        /// ボスは含まない（ボスは GetBoss）
+        /// </summary>
+        /// <param name="defeatedCount">このステージで倒した数</param>
+        /// <param name="normalCount">ボスが出るまでに倒す通常の敵の数</param>
+        public EnemyData GetNormalForStage(int defeatedCount, int normalCount, int minTier, int maxTier)
+        {
+            minTier = Mathf.Clamp(minTier, 1, 4);
+            maxTier = Mathf.Clamp(maxTier, minTier, 4);
+            float progress = normalCount > 0 ? Mathf.Clamp01((float)defeatedCount / normalCount) : 0f;
+            int tier = Mathf.Clamp(minTier + Mathf.FloorToInt(progress * (maxTier - minTier + 1)), minTier, maxTier);
+            return GetRandomByTier(tier);
+        }
+
+        /// <summary>ステージのボス（ティア5）を1体返す</summary>
+        public EnemyData GetBoss()
+        {
+            return GetRandomByTier(5);
         }
 
         /// <summary>

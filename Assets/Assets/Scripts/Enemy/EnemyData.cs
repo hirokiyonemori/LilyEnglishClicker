@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Idle
 {
     /// <summary>
-    /// 敵の種類（出題される単語のカテゴリと対応させる）
+    /// 敵の種類（既存データの分類を保持）
     /// </summary>
     public enum EnemyCategory
     {
@@ -37,8 +37,16 @@ namespace Idle
         public int tier = 1;
 
         [Header("戦闘")]
-        [Tooltip("このティアの基準HP。実HPは出題単語のmaxHpによって±25%程度変動する")]
+        [Tooltip("この敵の最大HP。単語には依存しない")]
         public int baseHp = 8;
+
+        [Min(0), Tooltip("0なら従来のティア×2。個別の攻撃力を設定できる")]
+        public int attackDamage;
+        [Min(0), Tooltip("0ならGameManagerの既定間隔。秒単位")]
+        public float attackInterval;
+
+        [Min(0), Tooltip("撃破時のGOLD。単語や正解数には依存しない") ]
+        public int goldReward = 50;
 
         /// <summary>
         /// 出題単語を加味した実際の最大HPを算出する
