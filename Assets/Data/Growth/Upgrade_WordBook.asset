@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5882b1be70bb46aa80b7cc43cf23f54, type: 3}
+  m_Name: Upgrade_WordBook
+  m_EditorClassIdentifier: Assembly-CSharp::LilyEnglish.Growth.PartyUpgradeDefinition
+  upgradeId: wordbook
+  displayName: "\u9B54\u6CD5\u306E\u5358\u8A9E\u5E33"
+  icon: {fileID: 0}
+  description: "\u30EA\u30EA\u30A3\u306E\u653B\u6483\u529B\u304C30%\u3001\u9632\u5FA1\u529B\u304C10%\u30A2\u30C3\u30D7"
+  currency: 2
+  costBase: 100
+  costGrowthRate: 1
+  maxLevel: 1
+  effectsPerLevel:
+  - targetCharacterId: 
+    hpPercent: 0
+    atkPercent: 10
+    defPercent: 10
+  - targetCharacterId: lily
+    hpPercent: 0
+    atkPercent: 20
+    defPercent: 0

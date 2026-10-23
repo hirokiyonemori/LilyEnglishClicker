@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c2d47267f364275a52a17cfb2b44fe, type: 3}
+  m_Name: Skill_SpellStar
+  m_EditorClassIdentifier: Assembly-CSharp::LilyEnglish.Growth.SkillDefinition
+  skillName: "\u30B9\u30DA\u30EB\u30B9\u30BF\u30FC"
+  icon: {fileID: 5199979006384268662, guid: d0cae233b68cc4febacf8d0cc32a9cff, type: 3}
+  descriptionFormat: "\u5192\u967A\u306E\u653B\u6483\u3067\u3001\u653B\u6483\u529B\u306E{0}%\u306E\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+  baseMultiplierPercent: 200
+  multiplierPerLevel: 20
+  maxLevel: 50
+  costBase: 50
+  costGrowthRate: 1.15
+  requireCorrectAnswer: 0
