@@ -17,6 +17,8 @@ namespace Idle
         [Header("Sprite Settings")]
         [SerializeField] private Sprite idleSprite;      // 待機状態の画像
         [SerializeField] private Sprite runningSprite;   // 走り状態の画像（移動中）
+        [Tooltip("走り姿勢の1枚絵に重心移動と足元の効果を合わせ、短い移動を表現する")]
+        [SerializeField] private bool smoothTravel;
         [SerializeField] private Sprite attackSprite;    // 攻撃（杖を振る）の画像
         [SerializeField] private float attackPoseDuration = 0.2f; // 攻撃絵を表示する時間（秒）
 
@@ -31,7 +33,12 @@ namespace Idle
         [Tooltip("弾が発射される位置（杖の先端など）")]
         [SerializeField] private Transform firePoint;
 
+        // 基準位置。UI の場合は RectTransform.anchoredPosition（アンカー基準）で保持する。
+        // 以前は transform.localPosition を Start 時に保存して毎フレーム書き戻していたが、
+        // localPosition は親（SafeArea 配下の PnlSafe）の大きさで値が変わるため、
+        // Start 後に解像度や SafeArea が変わると立ち絵が画面外へずれていた。
         private Vector3 originalPosition;
+        private RectTransform rectTransform;
         private PlayerState currentState = PlayerState.Idle;
         
         // SpriteRenderer または Image どちらかを使用
@@ -42,10 +49,18 @@ namespace Idle
         // 連打対応用の変数
         private Coroutine currentAttackCoroutine;
         private PlayerState lastNonAttackState = PlayerState.Idle;
+        private float travelTime;
+        private bool traveling;
+        private bool initialized;
+        private Quaternion restRotation;
+        private Vector3 restScale;
+        private TravelFootfallGraphic footfalls;
 
         private void Start()
         {
-            originalPosition = transform.localPosition;
+            rectTransform = transform as RectTransform;
+            originalPosition = GetPosition();
+            initialized = true;
             
             // まずSpriteRendererを確認
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -72,17 +87,108 @@ namespace Idle
 
         private void Update()
         {
+            if (currentState != PlayerState.Running) StopTravel();
             if (currentState == PlayerState.Running)
             {
+                if (smoothTravel)
+                {
+                    AnimateTravel();
+                    return;
+                }
                 // Simple bobbing animation (Sine wave)
                 float newY = originalPosition.y + Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmount;
-                transform.localPosition = new Vector3(originalPosition.x, newY, originalPosition.z);
+                SetPosition(new Vector3(originalPosition.x, newY, originalPosition.z));
             }
             else if (currentState == PlayerState.Idle)
             {
                 // Return to original position smoothly
-                transform.localPosition = Vector3.Lerp(transform.localPosition, originalPosition, Time.deltaTime * 5f);
+                SetPosition(Vector3.Lerp(GetPosition(), originalPosition, Time.deltaTime * 5f));
             }
+        }
+
+        private void AnimateTravel()
+        {
+            if (!traveling)
+            {
+                traveling = true;
+                travelTime = 0;
+                restRotation = transform.localRotation;
+                restScale = transform.localScale;
+                if (useUIImage && footfalls == null)
+                {
+                    var go = new GameObject("Travel Footfalls", typeof(RectTransform), typeof(CanvasRenderer));
+                    go.transform.SetParent(transform.parent, false);
+                    go.transform.SetSiblingIndex(transform.GetSiblingIndex());
+                    footfalls = go.AddComponent<TravelFootfallGraphic>();
+                    footfalls.raycastTarget = false;
+                    var r = footfalls.rectTransform;
+                    r.anchorMin = rectTransform.anchorMin;
+                    r.anchorMax = rectTransform.anchorMax;
+                    r.sizeDelta = new Vector2(160, 60);
+                    r.anchoredPosition = (Vector2)originalPosition + Vector2.up * (rectTransform.rect.yMin * restScale.y);
+                }
+            }
+            travelTime += Time.deltaTime;
+            // Use a stable running pose; cycling the old sheet changes body proportions.
+            SetSprite(runningSprite != null ? runningSprite : idleSprite);
+            // A small weight transfer, not a floating sine wave. Ease into the stride.
+            float weight = Mathf.SmoothStep(0, 1, travelTime / .12f);
+            float phase = travelTime * Mathf.PI * 5f;
+            float lift = Mathf.Sin(phase); lift *= lift;
+            float units = useUIImage ? 1f : .01f;
+            SetPosition(originalPosition + new Vector3(Mathf.Sin(phase) * 2f, lift * 4f, 0) * (units * weight));
+            transform.localRotation = restRotation * Quaternion.Euler(0, 0, (-.25f + Mathf.Sin(phase) * .35f) * weight);
+            if (footfalls != null)
+            {
+                footfalls.gameObject.SetActive(true);
+                footfalls.SetStride(travelTime * 2.5f, weight);
+            }
+        }
+
+        private void StopTravel()
+        {
+            if (!traveling) return;
+            traveling = false;
+            transform.localRotation = restRotation;
+            transform.localScale = restScale;
+            SetPosition(originalPosition);
+            if (footfalls != null) footfalls.gameObject.SetActive(false);
+        }
+
+        private void OnDisable()
+        {
+            StopTravel();
+            StopAllCoroutines();
+            currentAttackCoroutine = null;
+            currentState = lastNonAttackState = PlayerState.Idle;
+            if (initialized) SetPosition(originalPosition);
+            UpdateSprite();
+        }
+
+        private void OnDestroy()
+        {
+            if (footfalls != null) Destroy(footfalls.gameObject);
+        }
+
+        /// <summary>UI なら anchoredPosition、SpriteRenderer なら localPosition を基準座標として扱う</summary>
+        private Vector3 GetPosition()
+        {
+            if (rectTransform != null)
+            {
+                Vector2 anchored = rectTransform.anchoredPosition;
+                return new Vector3(anchored.x, anchored.y, transform.localPosition.z);
+            }
+            return transform.localPosition;
+        }
+
+        private void SetPosition(Vector3 position)
+        {
+            if (rectTransform != null)
+            {
+                rectTransform.anchoredPosition = new Vector2(position.x, position.y);
+                return;
+            }
+            transform.localPosition = position;
         }
 
         /// <summary>
@@ -104,6 +210,7 @@ namespace Idle
 
         public void SetState(PlayerState state)
         {
+            if (state != PlayerState.Running) StopTravel();
             Debug.Log($"★SetState呼び出し: {state} (現在の状態: {currentState})");
 
             // 攻撃中に他の状態への遷移が来た場合、攻撃が終わった後の戻り先を更新する
@@ -154,6 +261,7 @@ namespace Idle
 
         public void Attack()
         {
+            StopTravel();
             Debug.Log("PlayerController: Attack() called");
             
             // 魔法弾を発射 ★廃止
@@ -249,7 +357,7 @@ namespace Idle
             // 前に出る
             while (elapsed < duration)
             {
-                transform.localPosition = Vector3.Lerp(originalPosition, targetPos, elapsed / duration);
+                SetPosition(Vector3.Lerp(originalPosition, targetPos, elapsed / duration));
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -259,12 +367,13 @@ namespace Idle
             while (elapsed < duration)
             {
                 // 連打されている場合、位置だけは戻る動作をするが、スプライトは変わらない
-                transform.localPosition = Vector3.Lerp(targetPos, originalPosition, elapsed / duration);
+                SetPosition(Vector3.Lerp(targetPos, originalPosition, elapsed / duration));
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
             // 攻撃絵を表示する時間分待つ
+            SetPosition(originalPosition);
             yield return new WaitForSeconds(attackPoseDuration);
 
             // アニメーション完了後の処理

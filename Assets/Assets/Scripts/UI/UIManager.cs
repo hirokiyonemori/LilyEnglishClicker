@@ -42,8 +42,17 @@ namespace Idle
             UpdateUI();
         }
 
+        private long shownMoney = -1;
+
         private void Update()
         {
+            // 上部の GOLD は所持金（セーブ対象）。強化ショップでの支払いや自動収入でも変わるので変化を拾う
+            if (GoldText != null && DataManager.data != null && DataManager.data.Money != shownMoney)
+            {
+                shownMoney = DataManager.data.Money;
+                GoldText.text = "GOLD: " + shownMoney.ToString("N0");
+            }
+
             // ゴールドテキストのバウンドアニメーション（元のサイズに戻す）
             if (GoldText != null)
             {
@@ -90,6 +99,7 @@ namespace Idle
             // ゴールド表示更新
             if (GoldText != null)
             {
+                shownMoney = gold;
                 GoldText.text = "GOLD: " + gold.ToString("N0"); // 3桁区切りで表示
 
                 // ★バウンド演出：テキストを拡大
@@ -224,6 +234,8 @@ namespace Idle
         #endregion
         #region//Screens
         //Method for changing main screens
+        public bool IsPaused => isPause;
+
         public void ChangeScreen(string screenName)
         {
             switch (screenName)
