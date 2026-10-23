@@ -11,7 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803011774c2bf3647b089c7335437c6c, type: 3}
   m_Name: Android
   m_EditorClassIdentifier: 
+  useTestIds: 1
   appId: ca-app-pub-3940256099942544~3347511713
   bannerViewID: ca-app-pub-3940256099942544/6300978111
   interstitialID: ca-app-pub-3940256099942544/1033173712
   rewardBasedVideoID: ca-app-pub-3940256099942544/5224354917
+  appOpenID: ca-app-pub-3940256099942544/9257395921
+  prodAppId: ca-app-pub-8148356110096114~2330913463
+  prodBannerViewID: ca-app-pub-8148356110096114/8544492662
+  prodInterstitialID: ca-app-pub-8148356110096114/6441219291
+  prodRewardID: ca-app-pub-8148356110096114/2869969510
+  prodAppOpenID: ca-app-pub-8148356110096114/2030645731
