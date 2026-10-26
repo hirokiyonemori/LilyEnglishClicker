@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dac3fce0694f4f74a5cec8c8bc3d505, type: 3}
+  m_Name: Enemy_LanternCrab
+  m_EditorClassIdentifier: Assembly-CSharp::Idle.EnemyData
+  displayName: "\u30E9\u30F3\u30BF\u30F3\u30AC\u30CB"
+  sprite: {fileID: 5994863678353405465, guid: 97dd8b305d83e461bb0081ca402fdd43, type: 3}
+  spriteScale: 1
+  category: 2
+  tier: 2
+  baseHp: 20
+  attackDamage: 2
+  attackInterval: 0
+  goldReward: 50

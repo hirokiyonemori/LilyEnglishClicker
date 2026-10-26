@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803011774c2bf3647b089c7335437c6c, type: 3}
+  m_Name: iOS
+  m_EditorClassIdentifier: 
+  useTestIds: 1
+  appId: ca-app-pub-3940256099942544~1458002511
+  bannerViewID: ca-app-pub-3940256099942544/2934735716
+  interstitialID: ca-app-pub-3940256099942544/4411468910
+  rewardBasedVideoID: ca-app-pub-3940256099942544/1712485313
+  appOpenID: ca-app-pub-3940256099942544/5575463023
+  prodAppId: ca-app-pub-8148356110096114~3055630058
+  prodBannerViewID: ca-app-pub-8148356110096114/7304920731
+  prodInterstitialID: ca-app-pub-8148356110096114/1748507570
+  prodRewardID: ca-app-pub-8148356110096114/3061589249
+  prodAppOpenID: ca-app-pub-8148356110096114/2424775287

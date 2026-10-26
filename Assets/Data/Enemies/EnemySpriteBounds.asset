@@ -1,0 +1,469 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34935b1c6194a467faf406714a0fb966, type: 3}
+  m_Name: EnemySpriteBounds
+  m_EditorClassIdentifier: Assembly-CSharp::Idle.EnemySpriteBounds
+  entries:
+  - sprite: {fileID: 21300000, guid: 43f5fb5a7c66b4c4394f743f9176de9a, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.23144531
+      y: 0.15527344
+      width: 0.56933594
+      height: 0.69140625
+  - sprite: {fileID: 21300000, guid: 5dfb9ffe7ee8a44589565131395b9f78, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.28027344
+      y: 0.15234375
+      width: 0.43847656
+      height: 0.59765625
+  - sprite: {fileID: 21300000, guid: 42d81761f4e1e4944adf64a5132f78e4, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1796875
+      y: 0.10449219
+      width: 0.63964844
+      height: 0.56640625
+  - sprite: {fileID: 21300000, guid: c33ef268baf894ec59f766d2905bc715, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1328125
+      y: 0.060546875
+      width: 0.73535156
+      height: 0.8232422
+  - sprite: {fileID: 21300000, guid: 360b7b8d792e54dff873f6f97b821b2a, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.2998047
+      y: 0.08984375
+      width: 0.41308594
+      height: 0.71777344
+  - sprite: {fileID: 21300000, guid: 0a034adedc4e7413fa7aea80b16f922b, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.19824219
+      y: 0.13574219
+      width: 0.6357422
+      height: 0.6201172
+  - sprite: {fileID: 21300000, guid: 9c069ff459bfd4f41bb1c95b16f5bc27, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1953125
+      y: 0.16113281
+      width: 0.61328125
+      height: 0.5410156
+  - sprite: {fileID: 21300000, guid: 8597b6f7db4974da8aad410a5091ca33, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1796875
+      y: 0.08105469
+      width: 0.6542969
+      height: 0.9189453
+  - sprite: {fileID: 21300000, guid: 3ac06f8120f9a4219b2458c4415b8bc0, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.28710938
+      y: 0.09667969
+      width: 0.5683594
+      height: 0.6113281
+  - sprite: {fileID: 21300000, guid: a52d87bf2186647c2bfd012f6659a8e5, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.21582031
+      y: 0.14453125
+      width: 0.5683594
+      height: 0.6279297
+  - sprite: {fileID: 21300000, guid: 5af60dff93b2f4af19bc0c697cc783c3, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.18164062
+      y: 0.13378906
+      width: 0.62597656
+      height: 0.74316406
+  - sprite: {fileID: 21300000, guid: 177f3a4ae9ebd465dbd7ea58ece0f19e, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.22949219
+      y: 0.15039062
+      width: 0.49023438
+      height: 0.6230469
+  - sprite: {fileID: 21300000, guid: b0f494338aabd4b679e24be120ebae75, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.17578125
+      y: 0.107421875
+      width: 0.67578125
+      height: 0.74121094
+  - sprite: {fileID: 21300000, guid: cb92a6c933d4e4af7a799152a34f2d70, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.20800781
+      y: 0.16699219
+      width: 0.5234375
+      height: 0.56347656
+  - sprite: {fileID: 21300000, guid: abd9d069bb3004bc1a21db760fb65b2d, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1796875
+      y: 0.11230469
+      width: 0.6357422
+      height: 0.6591797
+  - sprite: {fileID: 21300000, guid: 9a74bf4fb47d7416bb00a2c92971f498, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.22753906
+      y: 0.111328125
+      width: 0.5371094
+      height: 0.6669922
+  - sprite: {fileID: 21300000, guid: a8e5626801c4741388984d3deefa143f, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.11621094
+      y: 0.10449219
+      width: 0.7714844
+      height: 0.7714844
+  - sprite: {fileID: 21300000, guid: 9a77df5385e8e480c94cb70d42bbfe52, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.18847656
+      y: 0.11425781
+      width: 0.62402344
+      height: 0.65527344
+  - sprite: {fileID: 21300000, guid: a4950e0abb8be494ba6e69c42a8dd49c, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.14355469
+      y: 0.16699219
+      width: 0.7158203
+      height: 0.5546875
+  - sprite: {fileID: 21300000, guid: a146b987cb838499ba627d3f25a0f978, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.22460938
+      y: 0.12988281
+      width: 0.5527344
+      height: 0.64746094
+  - sprite: {fileID: 21300000, guid: f807560a926e945179dd7499f3cf19e0, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.21777344
+      y: 0.11328125
+      width: 0.5654297
+      height: 0.7548828
+  - sprite: {fileID: 21300000, guid: ea5727bd56eff4163b41a4897e997e5b, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.37402344
+      y: 0.22070312
+      width: 0.25195312
+      height: 0.51660156
+  - sprite: {fileID: 21300000, guid: 3833d2aad7cae419fbbde69f12094f0d, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.26464844
+      y: 0.13085938
+      width: 0.4248047
+      height: 0.5810547
+  - sprite: {fileID: 21300000, guid: 95c13eb94a94e479ba108bbdfda29c16, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.103515625
+      y: 0.055664062
+      width: 0.79589844
+      height: 0.69140625
+  - sprite: {fileID: 21300000, guid: 348ff08b9e6e3458482360a90964bcd3, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.19238281
+      y: 0.038085938
+      width: 0.6386719
+      height: 0.82421875
+  - sprite: {fileID: 21300000, guid: fd584e124a6f942ac9df097e99447655, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.14648438
+      y: 0.09863281
+      width: 0.7128906
+      height: 0.81152344
+  - sprite: {fileID: 21300000, guid: 373b895c4b2a34f28b40a4a85e5edbac, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.07128906
+      y: 0.045898438
+      width: 0.8496094
+      height: 0.80859375
+  - sprite: {fileID: 21300000, guid: df8adee3403414615b6879badb9a5f8d, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.08689024
+      y: 0.07089241
+      width: 0.8506098
+      height: 0.85404503
+  - sprite: {fileID: 21300000, guid: dfa211d213d5f4955839f078f238baca, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.04191617
+      y: 0.10790145
+      width: 0.91766465
+      height: 0.797791
+  - sprite: {fileID: 21300000, guid: b3c4ed9b3f5ab4fd58e5497655f6a644, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.09908537
+      y: 0.029190993
+      width: 0.8696646
+      height: 0.94328606
+  - sprite: {fileID: -2253229009488089928, guid: 46336edcb033e44fb811dd1c63e3becc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.14489311
+      y: 0.16037735
+      width: 0.6912114
+      height: 0.62264156
+  - sprite: {fileID: -2794384814035202928, guid: 46336edcb033e44fb811dd1c63e3becc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.27725118
+      y: 0.14386792
+      width: 0.42890996
+      height: 0.7311321
+  - sprite: {fileID: -7021865556225787506, guid: 46336edcb033e44fb811dd1c63e3becc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.19477434
+      y: 0.14386792
+      width: 0.6247031
+      height: 0.6816038
+  - sprite: {fileID: 3261242214331824838, guid: 46336edcb033e44fb811dd1c63e3becc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.3111639
+      y: 0.2523585
+      width: 0.3800475
+      height: 0.5542453
+  - sprite: {fileID: -3772830580906084082, guid: 46336edcb033e44fb811dd1c63e3becc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.22748815
+      y: 0.24056605
+      width: 0.54028434
+      height: 0.5424528
+  - sprite: {fileID: 7126807765340315988, guid: 46336edcb033e44fb811dd1c63e3becc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.15201901
+      y: 0.28301886
+      width: 0.7078385
+      height: 0.47405663
+  - sprite: {fileID: -739855319086547665, guid: 97dd8b305d83e461bb0081ca402fdd43,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.23990498
+      y: 0.106132075
+      width: 0.65795726
+      height: 0.5636792
+  - sprite: {fileID: 4654248734159655973, guid: 97dd8b305d83e461bb0081ca402fdd43,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.2085308
+      y: 0.094339624
+      width: 0.58293843
+      height: 0.6768868
+  - sprite: {fileID: -3664409808109479678, guid: 97dd8b305d83e461bb0081ca402fdd43,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.15201901
+      y: 0.09669811
+      width: 0.64608073
+      height: 0.5825472
+  - sprite: {fileID: 7797260414352762636, guid: 97dd8b305d83e461bb0081ca402fdd43,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.28266034
+      y: 0.21462265
+      width: 0.51306415
+      height: 0.77358484
+  - sprite: {fileID: 2329861890600999736, guid: 97dd8b305d83e461bb0081ca402fdd43,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.11137441
+      y: 0.21226415
+      width: 0.8317536
+      height: 0.6721698
+  - sprite: {fileID: 5994863678353405465, guid: 97dd8b305d83e461bb0081ca402fdd43,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.11401425
+      y: 0.21933962
+      width: 0.6650831
+      height: 0.4740566
+  - sprite: {fileID: -2213143818480418682, guid: f7c3e4f46c67549eda834ca399681d70,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.11638955
+      y: 0.12264151
+      width: 0.76959616
+      height: 0.7169811
+  - sprite: {fileID: 3026658011481255396, guid: f7c3e4f46c67549eda834ca399681d70,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.18957347
+      y: 0.13207547
+      width: 0.74170613
+      height: 0.6816037
+  - sprite: {fileID: 5971201220703384395, guid: f7c3e4f46c67549eda834ca399681d70,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.20665084
+      y: 0.04245283
+      width: 0.584323
+      height: 0.870283
+  - sprite: {fileID: -462255373177933605, guid: f7c3e4f46c67549eda834ca399681d70,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.21852732
+      y: 0.12028302
+      width: 0.6128266
+      height: 0.7688679
+  - sprite: {fileID: 965879056100388343, guid: f7c3e4f46c67549eda834ca399681d70, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.11137441
+      y: 0.1721698
+      width: 0.83412325
+      height: 0.6933962
+  - sprite: {fileID: -6515779464292005869, guid: f7c3e4f46c67549eda834ca399681d70,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1496437
+      y: 0.13207547
+      width: 0.65795726
+      height: 0.754717
+  - sprite: {fileID: 2197018845229183722, guid: 235a50a1c79704280a17c2a02459c5bc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.08313539
+      y: 0.1721698
+      width: 0.82660335
+      height: 0.6533019
+  - sprite: {fileID: 5351484751955841444, guid: 235a50a1c79704280a17c2a02459c5bc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.16824645
+      y: 0.11320755
+      width: 0.7985782
+      height: 0.73113203
+  - sprite: {fileID: -4466975213382634840, guid: 235a50a1c79704280a17c2a02459c5bc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.15201901
+      y: 0.18396227
+      width: 0.7339667
+      height: 0.5613207
+  - sprite: {fileID: -8480444254865807789, guid: 235a50a1c79704280a17c2a02459c5bc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.17577197
+      y: 0.13679245
+      width: 0.6935867
+      height: 0.7334906
+  - sprite: {fileID: -6233581742405418527, guid: 235a50a1c79704280a17c2a02459c5bc,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.13270143
+      y: 0.2028302
+      width: 0.68720376
+      height: 0.6462264
+  - sprite: {fileID: 591586104178246722, guid: 235a50a1c79704280a17c2a02459c5bc, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.20665084
+      y: 0.1273585
+      width: 0.608076
+      height: 0.7641509
+  - sprite: {fileID: -4179739962856136293, guid: df7e898f2a6d142cd89379ad6cba7fad,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.19714965
+      y: 0.047169812
+      width: 0.72446555
+      height: 0.870283
+  - sprite: {fileID: -629590159398936561, guid: df7e898f2a6d142cd89379ad6cba7fad,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.18957347
+      y: 0.091981135
+      width: 0.6540284
+      height: 0.7830189
+  - sprite: {fileID: -2937237896164964741, guid: df7e898f2a6d142cd89379ad6cba7fad,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.038004752
+      y: 0.16745283
+      width: 0.87410927
+      height: 0.5589623
+  - sprite: {fileID: 509122870283928562, guid: df7e898f2a6d142cd89379ad6cba7fad, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.17577197
+      y: 0.12971698
+      width: 0.65795726
+      height: 0.75
+  - sprite: {fileID: -2818333559817555143, guid: df7e898f2a6d142cd89379ad6cba7fad,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.1042654
+      y: 0.11792453
+      width: 0.8554503
+      height: 0.8301887
+  - sprite: {fileID: -3107924151907609625, guid: df7e898f2a6d142cd89379ad6cba7fad,
+      type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.25890738
+      y: 0.1721698
+      width: 0.496437
+      height: 0.6933962
+  - sprite: {fileID: 297761703447499198, guid: 87e6022cf1ad24ca7ba317d20eae1ee3, type: 3}
+    visible:
+      serializedVersion: 2
+      x: 0.00795756
+      y: 0.003690037
+      width: 0.9867374
+      height: 0.98892987

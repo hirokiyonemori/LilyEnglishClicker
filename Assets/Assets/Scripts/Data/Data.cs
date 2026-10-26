@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Idle
@@ -12,6 +12,11 @@ namespace Idle
         public long Money;
         public long MoneyByClick;
         public long MoneyPerSecond;
+
+        // BinaryFormatterの旧data.binでは存在しないフィールドを既定値で読み込む。
+        [System.Runtime.Serialization.OptionalField] public int dailyBonusDay;
+        [System.Runtime.Serialization.OptionalField] public bool dailyQuizAnswered;
+        [System.Runtime.Serialization.OptionalField] public bool dailyQuizCorrect;
     }
 
     [Serializable]

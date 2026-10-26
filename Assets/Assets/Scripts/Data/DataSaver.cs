@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using System.IO;
 
@@ -15,11 +15,22 @@ namespace Idle
             //Create a local instance of a binary formatter
             BinaryFormatter binaryFormatter = new BinaryFormatter();
 
-            //Open or create file
-            using (FileStream fileStream = File.Open(Application.persistentDataPath + "/" + fileName + ".bin", FileMode.OpenOrCreate))
+            // 最後まで書けた場合だけ置き換え、保存途中の失敗で旧セーブを壊さない。
+            string path = Path.Combine(Application.persistentDataPath, fileName + ".bin");
+            string pending = path + ".tmp";
+            try
             {
-                binaryFormatter.Serialize(fileStream, objects); //We write our Objects to a file.
-                fileStream.Close();  //Close the file
+                using (FileStream stream = new FileStream(pending, FileMode.Create, FileAccess.Write))
+                {
+                    binaryFormatter.Serialize(stream, objects);
+                    stream.Flush();
+                }
+                if (File.Exists(path)) File.Replace(pending, path, null);
+                else File.Move(pending, path);
+            }
+            finally
+            {
+                if (File.Exists(pending)) File.Delete(pending);
             }
         }
         //Method to load
